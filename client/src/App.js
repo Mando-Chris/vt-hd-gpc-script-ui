@@ -43,23 +43,28 @@ class App extends Component{
     constructor (props) {
         super(props)
         this.state = {
-            notes: [],
+            notes: [{name:"colleen",content:"this is a note",timestamp:"12:34:%45"},{name:"oliver",content:"second note",timestamp:"12:34:%45"}],
+            tutoring_type: '',
+            hours_recommended: 0,
+            lead_pitched_y_n: false,
+            tutoring_rate: '',
+            start_date: ''
         };
     }
     componentDidMount() {   
       subscribeToUpdates((update) => {
-        if(update.notes){
+        if(update.call_notes){
           let newNotes = this.state.notes.slice();
-          newNotes.push(...update.notes);
-          this.setState({notes:newNotes});
+          newNotes.push({
+            name:'Laura Torp',
+            content: update.call_notes,
+            timestamp: new Date()
+          }
+          );
+          update.notes = newNotes;
         }
-        if(update.ttype){
-          this.setState({ttype:update.ttype});
-        }
-        if(update.test){
-          this.setState({test:update.test});
-        }
-
+        this.setState(update);
+ 
         console.log('update', update);
       });
     }
@@ -69,14 +74,25 @@ class App extends Component{
             <Navbar leftItems={leftItems} rightItems={rightItems}>
                 <Segment>
                     <Header>Notes</Header>
-                    <List bulleted>
-                        
+                    <List>
                                {this.state.notes.map(note =>
                                 <List.Item>
-                                    {note.name}
+                                <Grid>
+                                    <Grid.Column computer={3}>
+                                  <font size='2'> <b> {note.name} </b> </font>
+                                  <br></br>
+                                  <font size='1'> {note.timestamp}</font>
+                                   </Grid.Column>
+                                   <Grid.Column computer={13} >
+                                   <font size="4">{note.content}</font>
+                                </Grid.Column>
+                                  
+                                  </Grid>
+                                  <hr></hr>
                                 </List.Item>
                                )}
                     </List>
+    
                 </Segment>
             </Navbar>
         );
