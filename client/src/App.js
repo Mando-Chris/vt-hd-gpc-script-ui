@@ -7,7 +7,7 @@ import 'styling/semantic.less'
 const leftItems = [
   {
     as: 'a',
-    content: 'Documentation',
+    content: 'My Name',
     href: 'https://react.semantic-ui.com/',
     icon: 'book',
     key: 'docs',
@@ -17,7 +17,7 @@ const leftItems = [
 const rightItems = [
   {
     as: 'a',
-    content: 'Github',
+    content: '867-5309',
     href: 'https://github.com/Semantic-Org/Semantic-UI-React',
     icon: 'github',
     key: 'github',
@@ -25,7 +25,7 @@ const rightItems = [
   },
   {
     as: 'a',
-    content: 'Stack Overflow',
+    content: 'Middle Earth',
     icon: 'stack overflow',
     href: 'https://stackoverflow.com/questions/tagged/semantic-ui-react?sort=votes',
     key: 'so',

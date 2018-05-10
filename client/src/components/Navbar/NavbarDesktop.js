@@ -6,7 +6,7 @@ import { Container, Image, Menu } from 'semantic-ui-react'
 import logo from 'resources/logo.png'
 
 const NavbarDesktop = ({ leftItems, rightItems }) => (
-  <Menu fixed='top' inverted>
+  <Menu fixed='top'>
     <Container>
       <Menu.Item>
         <Image size='mini' src={logo} />
