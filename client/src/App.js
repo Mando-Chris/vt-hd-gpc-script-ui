@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Grid, Header, List, Segment } from 'semantic-ui-react'
+import { Button, Grid, Header, List, Segment, Dropdown } from 'semantic-ui-react'
 
 import { CustomMessage, Navbar } from 'components'
 import 'styling/semantic.less'
+import RadioGroup from './RadioGroup'
 
 import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:8000');
@@ -20,7 +21,7 @@ const leftItems = [
     as: 'a',
     content: 'My Name',
     href: 'https://react.semantic-ui.com/',
-    icon: 'book',
+    icon: 'user',
     key: 'docs',
     target: '_blank'
   },
@@ -30,19 +31,26 @@ const rightItems = [
     as: 'a',
     content: '867-5309',
     href: 'https://github.com/Semantic-Org/Semantic-UI-React',
-    icon: 'github',
+    icon: 'call square',
     key: 'github',
     target: '_blank'
   },
   {
     as: 'a',
     content: 'Middle Earth',
-    icon: 'stack overflow',
+    icon: 'marker',
     href: 'https://stackoverflow.com/questions/tagged/semantic-ui-react?sort=votes',
     key: 'so',
     target: '_blank',
   }
 ]
+
+const tutorTypes = [
+  { key: 1, text: 'Aggressive', value: 1 },
+  { key: 2, text: 'Timid', value: 2 },
+  { key: 3, text: 'Supportive', value: 3 },
+]
+
 class App extends Component{
     constructor (props) {
         super(props)
@@ -54,6 +62,15 @@ class App extends Component{
         return(
             <Navbar leftItems={leftItems} rightItems={rightItems}>
                 <Segment>
+                    <div id="row">
+                    <Header>Tutor Type</Header>
+                    
+                    <Dropdown id="tutor_type" width="140" placeholder='Select Tutor Type' selection options={tutorTypes} />
+
+                    <Dropdown id="tutor_rate" width="140" placeholder='Select Tutor Type' selection options={tutorTypes} />
+                    </div>
+                    <Header>Test Date</Header>
+                    <RadioGroup/>
                     <Header>Notes</Header>
                     <List bulleted>
                         
