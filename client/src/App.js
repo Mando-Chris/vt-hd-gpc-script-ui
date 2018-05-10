@@ -7,14 +7,10 @@ import RadioGroup from './RadioGroup'
 
 import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:8000');
-function subscribeToTimer(cb) {
-  socket.on('timer', timestamp => cb(null, timestamp));
-  socket.emit('subscribeToTimer', 1000);
+function subscribeToUpdates(cb) {
+  socket.on('update', update => cb(update));
 }
 
-subscribeToTimer((var1, stamp) => {
-  console.log('stamped', stamp);
-});
 
 const leftItems = [
   {
@@ -58,6 +54,24 @@ class App extends Component{
             notes: [],
         };
     }
+    componentDidMount() {   
+      subscribeToUpdates((update) => {
+        if(update.notes){
+          let newNotes = this.state.notes.slice();
+          newNotes.push(...update.notes);
+          this.setState({notes:newNotes});
+        }
+        if(update.ttype){
+          this.setState({ttype:update.ttype});
+        }
+        if(update.test){
+          this.setState({test:update.test});
+        }
+
+        console.log('update', update);
+      });
+    }
+
     render() {
         return(
             <Navbar leftItems={leftItems} rightItems={rightItems}>
@@ -76,7 +90,7 @@ class App extends Component{
                         
                                {this.state.notes.map(note =>
                                 <List.Item>
-                                    {note}
+                                    {note.name}
                                 </List.Item>
                                )}
                     </List>

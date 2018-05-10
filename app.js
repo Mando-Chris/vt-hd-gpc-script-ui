@@ -4,18 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// TEMPORARY LOCATION FOR THIS CODE
-const io = require('socket.io')();
-io.on('connection', (client) => {
-  client.on('subscribeToTimer', (interval) => {
-    console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.emit('timer', new Date());
-    }, interval);
-  });
-});
-const port = 8000;
-io.listen(port);
+
 
 var gpcRouter = require('./routes/gpc');
 
