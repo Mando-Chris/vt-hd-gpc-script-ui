@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react'
 import { Button, Grid, Header, List, Segment } from 'semantic-ui-react'
 
 import { CustomMessage, Navbar } from 'components'
@@ -7,7 +7,7 @@ import 'styling/semantic.less'
 const leftItems = [
   {
     as: 'a',
-    content: 'My Name',
+    content: 'Documentation',
     href: 'https://react.semantic-ui.com/',
     icon: 'book',
     key: 'docs',
@@ -17,7 +17,7 @@ const leftItems = [
 const rightItems = [
   {
     as: 'a',
-    content: '867-5309',
+    content: 'Github',
     href: 'https://github.com/Semantic-Org/Semantic-UI-React',
     icon: 'github',
     key: 'github',
@@ -25,38 +25,15 @@ const rightItems = [
   },
   {
     as: 'a',
-    content: 'Middle Earth',
+    content: 'Stack Overflow',
     icon: 'stack overflow',
     href: 'https://stackoverflow.com/questions/tagged/semantic-ui-react?sort=votes',
     key: 'so',
     target: '_blank',
   }
 ]
-class App extends Component{
-    constructor (props) {
-        super(props)
-        this.state = {
-            notes: [],
-        };
-    }
-    render() {
-        return(
-            <Navbar leftItems={leftItems} rightItems={rightItems}>
-                <Segment>
-                    <Header>Notes</Header>
-                    <List bulleted>
-                        
-                               {this.state.notes.map(note =>
-                                <List.Item>
-                                    {note}
-                                </List.Item>
-                               )}
-                    </List>
-                </Segment>
-            </Navbar>
-        );
-    }
-/*const App = () => (
+
+const App = () => (
   <Navbar leftItems={leftItems} rightItems={rightItems}>
     <Segment>
       <Header as='h1'>Your example App</Header>
@@ -162,7 +139,6 @@ class App extends Component{
       </Grid>
     </Segment>
   </Navbar>
-)*/
-}   
+)
+
 export default App
-    
