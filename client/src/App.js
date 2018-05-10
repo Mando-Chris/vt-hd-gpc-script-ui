@@ -4,6 +4,17 @@ import { Button, Grid, Header, List, Segment } from 'semantic-ui-react'
 import { CustomMessage, Navbar } from 'components'
 import 'styling/semantic.less'
 
+import openSocket from 'socket.io-client';
+const  socket = openSocket('http://localhost:8000');
+function subscribeToTimer(cb) {
+  socket.on('timer', timestamp => cb(null, timestamp));
+  socket.emit('subscribeToTimer', 1000);
+}
+
+subscribeToTimer((var1, stamp) => {
+  console.log('stamped', stamp);
+});
+
 const leftItems = [
   {
     as: 'a',
