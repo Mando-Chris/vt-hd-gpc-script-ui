@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Grid, Header, List, Segment } from 'semantic-ui-react'
+import { Button, Grid, Header, List, Segment, Dropdown } from 'semantic-ui-react'
 
 import { CustomMessage, Navbar } from 'components'
 import 'styling/semantic.less'
+import RadioGroup from './RadioGroup'
 
 import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:8000');
@@ -16,7 +17,7 @@ const leftItems = [
     as: 'a',
     content: 'My Name',
     href: 'https://react.semantic-ui.com/',
-    icon: 'book',
+    icon: 'user',
     key: 'docs',
     target: '_blank'
   },
@@ -26,29 +27,47 @@ const rightItems = [
     as: 'a',
     content: '867-5309',
     href: 'https://github.com/Semantic-Org/Semantic-UI-React',
-    icon: 'github',
+    icon: 'call square',
     key: 'github',
     target: '_blank'
   },
   {
     as: 'a',
     content: 'Middle Earth',
-    icon: 'stack overflow',
+    icon: 'marker',
     href: 'https://stackoverflow.com/questions/tagged/semantic-ui-react?sort=votes',
     key: 'so',
     target: '_blank',
   }
 ]
+
+const tutorTypes = [
+  { key: 1, text: 'In-Person', value: 'In-Person' },
+  { key: 2, text: 'Will Consider Online', value: 'Will Consider Online' },
+  { key: 3, text: 'Online', value: 'Online' },
+]
+
+const tutorRates = [
+  { key: 1, text: 'Academic 6+', value: 'Academic 6+' },
+  { key: 2, text: 'Academic K–5', value: 'Academic K–5' },
+  { key: 3, text: 'K–12 Test Prep', value: 'K–12 Test Prep' },
+  { key: 4, text: 'Graduate Test Prep', value: 'Graduate Test Prep' },
+  { key: 5, text: 'Academic 6+ (Online Only)', value: 'Academic 6+ (Online Only)' },
+  { key: 6, text: 'Academic K-5 (Online Only)', value: 'Academic K-5 (Online Only)' },
+  { key: 7, text: 'K–12 Test Prep (Online Only)', value: 'K–12 Test Prep (Online Only)' },
+  { key: 8, text: 'Graduate Test Prep (Online Only)', value: 'Graduate Test Prep (Online Only)' },
+]
+
 class App extends Component{
     constructor (props) {
         super(props)
         this.state = {
             notes: [{name:"colleen",content:"this is a note",timestamp:"12:34:%45"},{name:"oliver",content:"second note",timestamp:"12:34:%45"}],
-            tutoring_type: '',
-            hours_recommended: 0,
+            hours_recommended: 8,
             lead_pitched_y_n: false,
-            tutoring_rate: '',
-            start_date: ''
+            start_date: '2018-10-12',
+            tutor_type: 'Online',
+            tutor_rate: 'Graduate Test Prep (Online Only)'
         };
     }
     componentDidMount() {   
@@ -73,6 +92,38 @@ class App extends Component{
         return(
             <Navbar leftItems={leftItems} rightItems={rightItems}>
                 <Segment>
+                    <div id="row">
+                    <Grid>
+                    <Grid.Column computer={4}>
+                    <Header>Was Pitched</Header>
+                    <input id="pitched" type="text" value={this.state.lead_pitched_y_n} readonly/>
+                    
+                    </Grid.Column>
+                    <Grid.Column computer={4}>
+                    <Header>Tutor Type</Header>
+                    
+                    <Dropdown id="tutor_type"
+                        selection options={tutorTypes}
+                        defaultValue={this.state.tutor_type}/>
+                    
+                    <Header>Test Date</Header>
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input id="datePicker" type="text" value={this.state.start_date} readonly/>
+                    </div>
+                    
+                    </Grid.Column>
+                    <Grid.Column computer={8}>
+                    <Header>Tutor Rate</Header>
+                    <Dropdown id="tutor_rate" 
+                        selection options={tutorRates}
+                        defaultValue={this.state.tutor_rate}/>
+                    <Header> Hours </Header>
+                    <input id="hours" type="text" value={this.state.hours_recommended} readonly/>
+                    </Grid.Column>
+                    </Grid>
+                    </div>
+                    
                     <Header>Notes</Header>
                     <List>
                                {this.state.notes.map(note =>
