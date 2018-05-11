@@ -3,7 +3,6 @@ import { Button, Grid, Header, List, Segment, Dropdown } from 'semantic-ui-react
 
 import { CustomMessage, Navbar } from 'components'
 import 'styling/semantic.less'
-import RadioGroup from './RadioGroup'
 
 import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:8000');
@@ -62,29 +61,29 @@ class App extends Component{
     constructor (props) {
         super(props)
         this.state = {
-            notes: [{name:"colleen",content:"this is a note",timestamp:"12:34:%45"},{name:"oliver",content:"second note",timestamp:"12:34:%45"}],
-            hours_recommended: 8,
-            lead_pitched_y_n: false,
-            start_date: '2018-10-12',
-            tutor_type: 'Online',
-            tutor_rate: 'Graduate Test Prep (Online Only)'
+          notes: [{ name: "Colleen Ten Have", content: "Said this was a bad time", timestamp: "Thur May 3 2018" },
+          { name: "Wyll Brimacombe", content: "Nobody home, call back", timestamp: "Wed May 2 2018" }],
+          tutoring_type: '',
+          hours_recommended: 0,
+          lead_pitched_y_n: false,
+          tutoring_rate: '',
+          start_date: ''
         };
     }
     componentDidMount() {   
       subscribeToUpdates((update) => {
         if(update.call_notes){
           let newNotes = this.state.notes.slice();
-          newNotes.push({
+          newNotes.unshift({
             name:'Laura Torp',
             content: update.call_notes,
-            timestamp: new Date()
+            timestamp: (new Date()).toDateString()
           }
           );
           update.notes = newNotes;
         }
-        this.setState(update);
- 
         console.log('update', update);
+        this.setState(update);
       });
     }
 
@@ -104,7 +103,7 @@ class App extends Component{
                     
                     <Dropdown id="tutor_type"
                         selection options={tutorTypes}
-                        defaultValue={this.state.tutor_type}/>
+                        value={this.state.tutoring_type}/>
                     
                     <Header>Test Date</Header>
                     <div class="ui input left icon">
@@ -117,7 +116,7 @@ class App extends Component{
                     <Header>Tutor Rate</Header>
                     <Dropdown id="tutor_rate" 
                         selection options={tutorRates}
-                        defaultValue={this.state.tutor_rate}/>
+                        value={this.state.tutoring_rate}/>
                     <Header> Hours </Header>
                     <input id="hours" type="text" value={this.state.hours_recommended} readonly/>
                     </Grid.Column>
