@@ -66,6 +66,7 @@ class App extends Component{
           tutoring_type: '',
           hours_recommended: 0,
           lead_pitched_y_n: false,
+          start_date_required_y_n: false,
           tutoring_rate: '',
           start_date: ''
         };
@@ -96,7 +97,10 @@ class App extends Component{
                     <Grid.Column computer={4}>
                     <Header>Was Pitched</Header>
                     <Checkbox checked={this.state.lead_pitched_y_n} />
-                    
+
+                    <Header>Required Start Date</Header>
+                    <Checkbox checked={this.state.start_date_required_y_n} />
+
                     </Grid.Column>
                     <Grid.Column computer={4}>
                     <Header>Tutor Type</Header>
