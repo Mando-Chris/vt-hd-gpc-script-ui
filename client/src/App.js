@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Header, List, Segment, Dropdown } from 'semantic-ui-react'
+import { Button, Grid, Header, List, Segment, Dropdown, Input, Checkbox } from 'semantic-ui-react'
 
 import { CustomMessage, Navbar } from 'components'
 import 'styling/semantic.less'
@@ -14,7 +14,7 @@ function subscribeToUpdates(cb) {
 const leftItems = [
   {
     as: 'a',
-    content: 'My Name',
+    content: 'John Smith',
     href: 'https://react.semantic-ui.com/',
     icon: 'user',
     key: 'docs',
@@ -95,7 +95,7 @@ class App extends Component{
                     <Grid>
                     <Grid.Column computer={4}>
                     <Header>Was Pitched</Header>
-                    <input id="pitched" type="text" value={this.state.lead_pitched_y_n} readonly/>
+                    <Checkbox checked={this.state.lead_pitched_y_n} />
                     
                     </Grid.Column>
                     <Grid.Column computer={4}>
@@ -106,9 +106,9 @@ class App extends Component{
                         value={this.state.tutoring_type}/>
                     
                     <Header>Test Date</Header>
-                    <div class="ui input left icon">
-                        <i class="calendar icon"></i>
-                        <input id="datePicker" type="text" value={this.state.start_date} readonly/>
+                    <div className="ui input left icon">
+                        <i className="calendar icon"></i>
+                        <input id="datePicker" type="text" value={this.state.start_date} readOnly/>
                     </div>
                     
                     </Grid.Column>
@@ -118,7 +118,7 @@ class App extends Component{
                         selection options={tutorRates}
                         value={this.state.tutoring_rate}/>
                     <Header> Hours </Header>
-                    <input id="hours" type="text" value={this.state.hours_recommended} readonly/>
+                    <Input value={this.state.hours_recommended}/>
                     </Grid.Column>
                     </Grid>
                     </div>
